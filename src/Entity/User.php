@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -18,6 +19,11 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -34,6 +40,22 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword; 
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
+
+    public function __construct()
+    {
+        $this->isActive = true;
+    }
 
     public function getId(): ?int
     {
@@ -52,14 +74,16 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
-        return (string) $this->email;
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
     }
 
     /**
@@ -96,12 +120,25 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
     public function getSalt()
     {
         // not needed when using the "bcrypt" algorithm in security.yaml
+        return null;
     }
 
     /**
