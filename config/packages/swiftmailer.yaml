@@ -1,0 +1,14 @@
+swiftmailer:
+    transport:        gmail
+    username:         nauyokas.bsuir@gmail.com
+    password:         8f26a258fd06
+    host:             localhost
+    port:             465
+    encryption:       tls
+    auth-mode:        login
+    spool: { type: 'memory' }
+    stream_options:
+        ssl:
+            allow_self_signed: true
+            verify_peer: false
+            verify_peer_name: false

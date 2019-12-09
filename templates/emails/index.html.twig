@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PassRecoveryController!{% endblock %}
+{% block title %}Hello MainController!{% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +9,8 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Password Recovery</h1>
-    {{ form_start(form) }}
-        {{ form_row(form.email) }}
+    <h1>Hello</h1>
 
-        <button type="submit">Send email!</button>
-    {{ form_end(form) }}
+    <p>Your new password: {{ password }}</p>
 </div>
-    {{ answer }}
 {% endblock %}
