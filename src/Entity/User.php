@@ -165,4 +165,13 @@ class User implements UserInterface, \Serializable
             $this->password
         ) = unserialize($string, ['allowed_classes' => false]);   
     }
+
+    public function findListByFilter($tags):array
+    {
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.tags', 'tags')
+            ->where('tags IN (:value)')
+            ->setParameter(':value', $tags)
+            ->getQuery()->getResult();
+    }
 }

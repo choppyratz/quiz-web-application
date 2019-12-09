@@ -8,6 +8,8 @@ use App\Entity\User;
 use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends AbstractController
@@ -27,7 +29,12 @@ class RegistrationController extends AbstractController
 
     		$em = $this->getDoctrine()->getManager();
     		$em->persist($user);
-    		$em->flush();
+			$em->flush();
+
+			$response = new RedirectResponse('/login');
+			$response->prepare($request);
+		
+			return $response->send();
     	}
 
         return $this->render('registration/registration.html.twig', [
