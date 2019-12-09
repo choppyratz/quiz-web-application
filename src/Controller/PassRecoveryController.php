@@ -20,21 +20,33 @@ class PassRecoveryController extends AbstractController
     public function index(Request $request): Response
     {
         $user = new User();
-        $ema = 'no';
         $form = $this->createForm(PassRecoveryType::class, $user);
-        $form->handleRequest($request);
-        $email;
 
-        $em = null;
+        $isInDB = "out";
+        $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $em = $this->getDoctrine()->getManager();
+            $email = $user->getEmail(); 
+    
+            if ($this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $email])) {
+                $isInDB = "in";
+            }
+        }
+
+/*        $ans = "out";
+        $task = null;
+        if ($form->isSubmitted()) {
             $task = $form->getData();
 
-            $qb = $user->createQueryBuilder('p')
+            if ($this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $task])) {
+                $ans = "in";
+            }
+*/
+
+/*            $qb = $user->createQueryBuilder('p')
             ->andWhere('p.price > :task')
             ->setParameter('task', $task)
             ->getQuery();
-            $em = $qb->execute();
+            $em = $qb->execute();*/
 
             //$em = $this->getDoctrine()->getManager();
             //$email = $task->getEmail();
@@ -48,11 +60,10 @@ class PassRecoveryController extends AbstractController
 			//return $response->send();
             
 
-        }
 
         return $this->render('pass_recovery/index.html.twig', [
             'form' => $form->createView(),
-            'task' => $em
+            'answer' => $isInDB
         ]);
     }
 }
