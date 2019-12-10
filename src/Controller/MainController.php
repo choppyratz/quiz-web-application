@@ -14,12 +14,16 @@ class MainController extends AbstractController
      */
     public function index()
     {
-        $session = new Session();
-        $session->start();
-
-        return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
-            'email' => $session->get('email')
-        ]);
+        if ($this->isGranted('ROLE_USER')) {
+            return $this->render('main/index.html.twig', [
+                        'controller_name' => 'MainController',
+                        'auth' => 'yes'
+                    ]);
+        }else{
+            return $this->render('main/index.html.twig', [
+                'controller_name' => 'MainController',
+                'auth' => 'no'
+            ]);    
+        }
     }
 }

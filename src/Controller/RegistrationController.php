@@ -19,13 +19,20 @@ class RegistrationController extends AbstractController
      */
     public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+		if ($this->isGranted('ROLE_USER')) {
+            $response = new RedirectResponse('/');
+			$response->prepare($request);
+			return $response->send();
+		}
+		
     	$user = new User();
     	$form = $this->createForm(UserType::class, $user);
 
     	$form->handleRequest($request);
     	if ($form->isSubmitted() && $form->isValid()) {
     		$password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-    		$user->setPassword($password);
+			$user->setPassword($password);
+			$user->setRoles(['ROLE_USER']);
 
     		$em = $this->getDoctrine()->getManager();
     		$em->persist($user);

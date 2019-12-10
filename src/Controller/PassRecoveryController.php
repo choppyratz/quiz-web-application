@@ -28,6 +28,12 @@ class PassRecoveryController extends AbstractController
      */
     public function index(Request $request, MailerInterface $mailer, UserPasswordEncoderInterface $passwordEncoder): Response
     {
+        if ($this->isGranted('ROLE_USER')) {
+            $response = new RedirectResponse('/');
+			$response->prepare($request);
+			return $response->send();
+        }
+        
         $user = new User();
         $form = $this->createForm(PassRecoveryType::class, $user);
 
