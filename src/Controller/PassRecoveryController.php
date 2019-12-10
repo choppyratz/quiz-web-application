@@ -11,59 +11,42 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class PassRecoveryController extends AbstractController
 {
+    public function sendMessage(MailerInterface $mailer, string $message)
+    {
+        $email = (new Email())
+            ->from('rfeg@gsd.gg')
+            ->to('esg@grjglk.com')
+            ->text($message);
+
+        $mailer->send($email); 
+    }
+
     /**
      * @Route("/recovery", name="pass_recovery")
      */
-    public function index(Request $request): Response
+    public function index(Request $request, MailerInterface $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(PassRecoveryType::class, $user);
 
-        $isInDB = "out";
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $email = $user->getEmail(); 
-    
-            if ($this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $email])) {
-                $isInDB = "in";
+            $email = $user->getEmail();
+            if ($this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['email' => $email])) {
+                $this->sendMessage($mailer, 'test2143t4');
+                return $this->redirectToRoute('newp', [
+                    'email' => $email
+                ]);
             }
         }
-
-/*        $ans = "out";
-        $task = null;
-        if ($form->isSubmitted()) {
-            $task = $form->getData();
-
-            if ($this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $task])) {
-                $ans = "in";
-            }
-*/
-
-/*            $qb = $user->createQueryBuilder('p')
-            ->andWhere('p.price > :task')
-            ->setParameter('task', $task)
-            ->getQuery();
-            $em = $qb->execute();*/
-
-            //$em = $this->getDoctrine()->getManager();
-            //$email = $task->getEmail();
-
-            //$query = $em->createQuery("SELECT id FROM App\Entity\User  WHERE email = '{$task['email']}'");
-            //$users = $query->getResult(); 
-            //$repository->find();
-            //$response = new RedirectResponse('/');
-			//$response->prepare($request);
-		//
-			//return $response->send();
             
-
-
         return $this->render('pass_recovery/index.html.twig', [
-            'form' => $form->createView(),
-            'answer' => $isInDB
+            'form' => $form->createView()
         ]);
     }
 }
