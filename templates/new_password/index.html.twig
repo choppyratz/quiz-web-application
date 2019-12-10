@@ -10,13 +10,10 @@
 <div class="example-wrapper">
     <h1>Password Recovery</h1>
     {{ form_start(form) }}
-        {{ form_row(form.email) }}
+        {{ form_row(form.plainPassword) }}
 
         <button type="submit">Send email!</button>
     {{ form_end(form) }}
 </div>
-<<<<<<< HEAD
-=======
-    {{ answer }}
->>>>>>> 4991b97193134d1fc23fbd4e067145186a7a7e41
 {% endblock %}
+
