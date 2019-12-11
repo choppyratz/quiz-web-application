@@ -1,42 +1,4 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-   {% block stylesheets %}
-  <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
-  {% endblock %}
-</head>
-<body>
-  <header>
-    <div class="logo">QuizApp</div> 
-    <div class="user_info">
-      {% if is_granted('ROLE_USER') %}
-        <span class="name">Добро пожаловать, {{ app.user.email}}!</span>
-        <span class="auth_type"><a href="{{path('logout')}}">Выход</a></span>
-      {% else %}
-        <span class="name">Добро пожаловать, Гость!</span>
-        <span class="auth_type"><a href="{{path('login')}}">Вход</a></span>  
-      {% endif %}
-    </div>
-  </header>
-  <div class="container">
-    <nav>
-      <div class="knp">=</div>
-      <ul>
-        <li><a href="">Все викторины</a></li>
-        <li><a href="">menu item 1</a></li>
-        <li><a href="">menu item 1</a></li>
-        <li><a href="">menu item 1</a></li>
-        <li><a href="">menu item 1</a></li>
-        <li><a href="">menu item 1</a></li>
-        <li><a href="">menu item 1</a></li>
-        <li><a href="">menu item 1</a></li>
-      </ul>
-    </nav>
-    <article></article>
-  </div>
-</body>
-</html>
+{% extends 'base.html.twig' %}
+{% block body %}
+<p>Пишем в артикле</p>
+{% endblock %}

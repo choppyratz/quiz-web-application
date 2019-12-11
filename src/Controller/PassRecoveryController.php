@@ -44,10 +44,10 @@ class PassRecoveryController extends AbstractController
         if ($form->isSubmitted()) {
             $email = $user->getEmail();
             if ($this->getDoctrine()->getManager()->getRepository(User::class)->findOneBy(['email' => $email])) {
-                $this->sendMessage($mailer, 'test2143t4');
-                return $this->redirectToRoute('newp', [
-                    'email' => $email
-                ]);
+                //$this->sendMessage($mailer, 'test2143t4');
+                //return $this->redirectToRoute('newp', [
+                //    'email' => $email
+                //]);
             }
         }
             
