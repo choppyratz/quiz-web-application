@@ -14,13 +14,13 @@
     border:none;
     cursor:pointer;
     outline:none;
-    background: #225CFF;
+    background: #633FA0;
     color:white;
     font-size: 18px;
   }
   
   .buttons>button:hover {
-    background: #1854f9;  
+    background: #6131b2;  
   }
   
   .panel>input[type="text"]{
@@ -30,13 +30,19 @@
     font-size:15px;
     max-width:100%;
     border:none;
-    border-bottom:1px solid #225CFF; 
+    border-bottom:1px solid #633FA0; 
     outline: none;
+    background: #E4E4E4;
+    border-radius:5px;
   }
   
+
+  .panel{
+    margin-top:20px;
+  }
   
   .question{
-    
+    color:white;
   }
   
   .radio {
@@ -59,7 +65,7 @@
   .radio .label {
     position: relative;
     display: block;
-  
+    box-sizing: border-box;
     margin-right: 10px;
     width: 20px;
     height: 20px;
@@ -72,16 +78,17 @@
     display: flex;
     margin: 0;
     margin-top: 5px;
+    color:white;
   }
   .radio .label:after {
     content: '';
     position: absolute;
-    top: 5px;
-    left: 5px;
+    top: 3px;
+    left: 3px;
     width: 10px;
     height: 10px;
     border-radius: 100%;
-    background: #225cff;
+    background: #633FA0;
     transform: scale(0);
     transition: all 0.2s ease;
     opacity: 0.08;
@@ -92,7 +99,7 @@
   }
   
   input[type="radio"]:checked + .label {
-    border-color: #225cff;
+    border-color: #633FA0;
   }
   input[type="radio"]:checked + .label:after {
     transform: scale(1);
@@ -106,6 +113,7 @@
   .quiz_name{
     text-align:center;
     margin-bottom: 10px;
+    color:white;
   }
   
   input[type="text"]{

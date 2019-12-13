@@ -1,17 +1,19 @@
 *{
   margin: 0;
   padding: 0;
+  font-family:Arial;
 }
 
 body{
   margin:auto;
+  background: #1F202A;
 }
 
 header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  background:#2F2F2F;
+  background:#252631;
   padding:18px;
   color:white;
   font-family: Arial;

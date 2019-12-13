@@ -18,9 +18,10 @@ $(document).ready(function(){
     });
     
     let obj = {};
-    
     $('.add_que').on('click',function(){
       obj['name'] = $('.quiz_name').html();
+      let now = new Date();
+      obj['create_date'] = now.toLocaleString();
       obj['quiz_body'] = {};
       $('.question').each(function(index){
         let que_variants = [];
@@ -33,6 +34,16 @@ $(document).ready(function(){
           'true_answer' : $(this).find('p').html() - 1 
         };   
       });
-      $('.quiz_generator').append(JSON.stringify(obj));
+
+      $.ajax({
+        url: '/admin/addquiz',
+        type: 'POST',
+        dataType: 'JSON',
+        data: 'data=' + JSON.stringify(obj),
+        success: function(data) {
+
+        }
+      });
+      //$('.quiz_generator').append(JSON.stringify(obj));
     });
   });
