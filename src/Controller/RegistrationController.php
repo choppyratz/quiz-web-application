@@ -40,7 +40,6 @@ class RegistrationController extends AbstractController
 
 			$response = new RedirectResponse('/login');
 			$response->prepare($request);
-		
 			return $response->send();
     	}
 

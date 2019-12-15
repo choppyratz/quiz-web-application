@@ -17,23 +17,23 @@ class Quiz
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
      */
     private $name;
 
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $registrationTime;
 
     /**
-     * @ORM\Column(type="bool")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $isActive;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="json", nullable=true)
      */
     private $quizInfo;
 
@@ -54,16 +54,40 @@ class Quiz
         return $this->name;
     }
 
-    public function setRegistrationTime(string $RegistrationTime): self
+    public function setRegistrationTime($registrationTime): self
     {
-        $this->RegistrationTime = $RegistrationTime;
+        $this->registrationTime = $registrationTime;
 
         return $this;
     }
 
-    public function getRegistrationTime(): ?string
+    public function getRegistrationTime(): ?date
     {
-        return $this->RegistrationTime;
+        return $this->registrationTime;
+    }
+
+    public function setQuizInfo($quizInfo): self
+    {
+        $this->quizInfo = $quizInfo;
+
+        return $this;
+    }
+
+    public function getQuizInfo(): ?json
+    {
+        return $this->quizInfo;
+    }
+
+    public function setisActive(string $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getisActive(): ?int
+    {
+        return $this->isActive;
     }
 
 

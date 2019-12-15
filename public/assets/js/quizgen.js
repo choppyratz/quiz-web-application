@@ -36,12 +36,13 @@ $(document).ready(function(){
       });
 
       $.ajax({
-        url: '/admin/addquiz',
+        url: 'addquiz',
         type: 'POST',
-        dataType: 'JSON',
-        data: 'data=' + JSON.stringify(obj),
+        dataType: 'json',
+        data: JSON.stringify(obj),
+        async: true,
         success: function(data) {
-
+          console.log(data);
         }
       });
       //$('.quiz_generator').append(JSON.stringify(obj));
