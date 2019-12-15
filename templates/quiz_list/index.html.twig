@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello QuizListController!{% endblock %}
+   {% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/quizList.css')}}">
+  {% endblock %}
+
+{% block body %}
+     <div class="quiz">
+        <h2 class="quiz_name">Тест на знание дат второй мировой войны</h2>
+        <div class="panel">
+          <div class="date">Создана: 2017-08-31 00:00:00</div>
+          <button class="start" disabled>Начать</button>
+        </div>
+      </div>
+      
+      <div class="quiz disabled">
+        <h2 class="quiz_name">Тест на знание дат второй мировой войны</h2>
+        <div class="panel">
+          <div class="date">Создана: 2017-08-31 00:00:00</div>
+          <button class="start">Начать</button>
+        </div>
+      </div>
+      
+      <div class="quiz">
+        <h2 class="quiz_name">Тест на знание дат второй мировой войны</h2>
+        <div class="panel">
+          <div class="date">Создана: 2017-08-31 00:00:00</div>
+          <button class="start">Начать</button>
+        </div>
+      </div>
+      
+      <div class="quiz">
+        <h2 class="quiz_name">Тест на знание дат второй мировой войны</h2>
+        <div class="panel">
+          <div class="date">Создана: 2017-08-31 00:00:00</div>
+          <button class="start">Начать</button>
+        </div>
+      </div>
+{% endblock %}
+     {% block javascript %}
+         <script src="{{asset('assets/js/main.js')}}"></script>
+     {% endblock %}
