@@ -7,37 +7,21 @@
   {% endblock %}
 
 {% block body %}
-     <div class="quiz">
-        <h2 class="quiz_name">Тест на знание дат второй мировой войны</h2>
-        <div class="panel">
-          <div class="date">Создана: 2017-08-31 00:00:00</div>
-          <button class="start" disabled>Начать</button>
+    {% for quiz in list %}
+        
+        <div class="quiz">
+          <h2 class="quiz_name">{{quiz.name}}</h2>
+          <div class="panel">
+            <div class="date">Создана: {{ quiz.registrationTime }}</div>
+            {% if quiz.isActive %}
+              <button class="start"><a href="/quiz/{{quiz.id}}">Начать</a></button>
+            {% else %}
+              <button class="start" disabled>Начать</button>
+            {% endif %}
+          </div>
         </div>
-      </div>
-      
-      <div class="quiz disabled">
-        <h2 class="quiz_name">Тест на знание дат второй мировой войны</h2>
-        <div class="panel">
-          <div class="date">Создана: 2017-08-31 00:00:00</div>
-          <button class="start">Начать</button>
-        </div>
-      </div>
-      
-      <div class="quiz">
-        <h2 class="quiz_name">Тест на знание дат второй мировой войны</h2>
-        <div class="panel">
-          <div class="date">Создана: 2017-08-31 00:00:00</div>
-          <button class="start">Начать</button>
-        </div>
-      </div>
-      
-      <div class="quiz">
-        <h2 class="quiz_name">Тест на знание дат второй мировой войны</h2>
-        <div class="panel">
-          <div class="date">Создана: 2017-08-31 00:00:00</div>
-          <button class="start">Начать</button>
-        </div>
-      </div>
+    {% endfor %}
+    {{ knp_pagination_render(list) }}
 {% endblock %}
      {% block javascript %}
          <script src="{{asset('assets/js/main.js')}}"></script>

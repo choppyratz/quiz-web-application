@@ -61,7 +61,7 @@ class Quiz
         return $this;
     }
 
-    public function getRegistrationTime(): ?date
+    public function getRegistrationTime(): ?string
     {
         return $this->registrationTime;
     }
