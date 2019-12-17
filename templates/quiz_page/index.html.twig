@@ -1,7 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello QuizPageController!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('assets/css/quizpage.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
+{% endblock %}
 
 {% block body %}
-    <p style="color:white">{{ id }}</p>
+          <div class="quiz">
+          <h3 class="quiz_name"></h3>
+          <div class="quiz_body">
+          </div>
+                        <div class="panel">
+                <div class="question_result">
+                  <div class="true_ans">Верно</div>
+                  <div class="false_ans">Неверно</div>
+                </div>
+                <button class="ans_btn">Ответить</button>
+              </div>
+      </div>
+{% endblock %}
+{% block javascript %}
+    <script src="{{asset('assets/js/main.js')}}"></script>
+    <script src="{{asset('assets/js/quizpage.js')}}"></script>
 {% endblock %}

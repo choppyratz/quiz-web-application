@@ -44,3 +44,30 @@
     justify-content: space-between;
     align-items: center;
   }
+
+  .pagination{
+    display: flex;
+    justify-content: center;
+    margin-top:25px;
+  }
+
+  .current{
+    background: #6131b2 !important;
+  }
+
+  .pagination>span{
+    padding: 10px;
+    background: #633FA0;
+    margin-left: 5px;
+    margin-right: 5px;
+    color:white;
+  }
+
+  .pagination>span>a{
+    color:white;
+    text-decoration: none;
+  }
+
+  .page{
+    background: #633FA0;
+  }

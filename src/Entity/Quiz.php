@@ -73,7 +73,7 @@ class Quiz
         return $this;
     }
 
-    public function getQuizInfo(): ?json
+    public function getQuizInfo()
     {
         return $this->quizInfo;
     }
