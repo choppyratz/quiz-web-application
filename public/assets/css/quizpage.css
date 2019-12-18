@@ -59,6 +59,14 @@
     border-radius: 100%;
     -webkit-tap-highlight-color: transparent;
   }
+
+  .red {
+    background: red;
+  }
+
+  .green {
+    background: green;
+  }
   
   .radio{
     display: flex;

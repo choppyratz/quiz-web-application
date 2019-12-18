@@ -49,16 +49,56 @@ $(window).on('load',function(){
         }
     });
 
-    //alert(ques_count);
-    $('.ans_btn').on('click', function(){
-    if (ques_count == curr_ques)
-        $('.ans_btn').html('Узнать результаты');
-      if (ques_count > curr_ques) {
+    function sleepFor( sleepDuration ){
+        var now = new Date().getTime();
+        while(new Date().getTime() < now + sleepDuration){ /* do nothing */ } 
+    }
+
+    function redirect() {
         $('#que' + curr_ques).removeClass('current_question');
         curr_ques++;
         $('#que' + curr_ques).addClass('current_question');
-        if (ques_count == curr_ques)
-          $('.ans_btn').html('Узнать результаты');
+        $('.radio').removeClass('red');
+    }
+    //alert(ques_count);
+    $('.ans_btn').on('click', function(){
+    if (ques_count == curr_ques) {
+        //$('.ans_btn').html('Узнать результаты');
+        $('.current_question').find('.answers').find('.radio').each(function(index){
+            if ($(this).find('input').prop("checked")){
+                //alert($(this).find('input').prop("checked"));
+                if (index == obj['quiz_body'][curr_ques]['true_answer']) {
+                    $('.radio').addClass('red');
+                    $(this).addClass('green'); 
+                    sleepFor(1000);
+                    //alert();
+                    //return;
+                }
+            }
+        });
+        //$('#que' + curr_ques).removeClass('current_question');
+        curr_ques++;
+        //$('#que' + curr_ques).addClass('current_question');
+    }
+
+      if (ques_count > curr_ques) {
+        $('.current_question').find('.answers').find('.radio').each(function(index){
+            if ($(this).find('input').prop("checked")){
+                if (index == obj['quiz_body'][curr_ques]['true_answer']) {
+                    $('.radio').addClass('red');
+                    $(this).addClass('green'); 
+                    //sleepFor(3000);
+                    //alert(); 
+                    //return;
+                }
+            }
+        });
+        //sleepFor(3000);
+        setTimeout(redirect,1000);
+        //sleepFor(3000);
+        if (ques_count == curr_ques) {
+            $('.ans_btn').html('Узнать результаты');
+        }
       }
   
     });
