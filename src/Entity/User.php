@@ -21,7 +21,7 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
      */
     private $username;
 
@@ -51,6 +51,11 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="boolean")
      */
     private $isActive;
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $quizesInfo;
 
     public function __construct()
     {
@@ -140,6 +145,19 @@ class User implements UserInterface, \Serializable
         // not needed when using the "bcrypt" algorithm in security.yaml
         return null;
     }
+
+    public function setQuizesInfo($quizesInfo): self
+    {
+        $this->quizesInfo = $quizesInfo;
+
+        return $this;
+    }
+
+    public function getQuizesInfo()
+    {
+        return $this->quizesInfo;
+    }
+
 
     /**
      * @see UserInterface
