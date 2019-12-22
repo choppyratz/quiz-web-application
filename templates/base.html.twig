@@ -27,14 +27,11 @@
       <div class="knp">=</div>
       <ul>
         <li><a href="{{path('quiz_list')}}">Все викторины</a></li>
-        <li><a href="">menu item 1</a></li>
-        <li><a href="">menu item 1</a></li>
-        <li><a href="">menu item 1</a></li>
-        <li><a href="">menu item 1</a></li>
-        <li><a href="">menu item 1</a></li>
-        <li><a href="">menu item 1</a></li>
-        <li><a href="">menu item 1</a></li>
-        <li><a href="{{ path('add_quiz') }}">Добавить викторину</a></li>
+        {% if is_granted('ROLE_ADMIN') %}
+          <li><a href="{{ path('add_quiz') }}">Добавить викторину</a></li>
+          <li><a href="{{ path('quiz_management') }}">Управление викторинами</a></li>
+          <li><a href="{{ path('user_management') }}">Управление пользователями</a></li>
+        {% endif %}
       </ul>
     </nav>
     <article>

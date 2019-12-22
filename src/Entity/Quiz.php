@@ -37,6 +37,11 @@ class Quiz
      */
     private $quizInfo;
 
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $rating;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +93,18 @@ class Quiz
     public function getisActive(): ?int
     {
         return $this->isActive;
+    }
+
+    public function setRating($rating): self
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    public function getRating()
+    {
+        return $this->rating;
     }
 
 

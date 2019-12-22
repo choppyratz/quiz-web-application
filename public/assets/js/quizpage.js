@@ -25,20 +25,33 @@ $(window).on('load',function(){
     let obj;
     let curr_ques;
     let ques_count;
+    let show_rating = false;
     $.ajax({
         url: uri,
         method: 'POST',
         success: function(data) {
             obj = data;
             console.log(obj);
-            //curr_ques = 0;
+            curr_ques = 0;
+            let j =0;
             for (let i = 0; i < data['curr_res'][0].length; i++) {
                 if (data['curr_res'][0][i] == "not") {
                     curr_ques = i;
                     break;
                 }
+                j++;
             }
+            if (j > 0 && curr_ques == 0) {
+                show_rating = true;
+                showRating();
+                return;    
+            }
+            
             console.log(curr_ques);
+            if (curr_ques == undefined) {
+                show_rating = true;
+                return;
+            }
             
             ques_count = Object.keys(obj['quiz_body']).length - 1; 
             if (ques_count == curr_ques)
@@ -79,63 +92,78 @@ $(window).on('load',function(){
             $('.ans_btn').html('Узнать результаты');
         }
     }
+    function showRating() {
+        $('.quiz').hide();
+    }
     //alert(ques_count);
     $('.ans_btn').on('click', function(){
-    let isTrueAns = "false";
-    //console.log(obj['quiz_body'][curr_ques]['true_answer']);
-    if (ques_count == curr_ques) {
-        //$('.ans_btn').html('Узнать результаты');
-        $('.current_question').find('.answers').find('.radio').each(function(index){
-            if ($(this).find('input').prop("checked")){
-                //alert($(this).find('input').prop("checked"));
-                if (index == obj['quiz_body'][curr_ques]['true_answer']) {
-                    $('.radio').addClass('red');
-                    $(this).addClass('green');
-                    isTrueAns = "true"; 
-                    //sleepFor(1000);
-                    //alert();
-                    //return;
-                }else {
-                    $('.current_question').find('.answers').find('.radio').addClass('red'); 
-                    $('.current_question').find('.answers').find('.radio').eq(obj['quiz_body'][curr_ques]['true_answer']).addClass('green');      
-                }
-            }
-        });
-        //$('#que' + curr_ques).removeClass('current_question');
-        curr_ques++;
-        //$('#que' + curr_ques).addClass('current_question');
-    }
+        if (!show_rating) {
+            let isTrueAns = "false";
+            //console.log(obj['quiz_body'][curr_ques]['true_answer']);
+            if (ques_count == curr_ques) {
+                //$('.ans_btn').html('Узнать результаты');
+                $('.current_question').find('.answers').find('.radio').each(function(index){
+                    if ($(this).find('input').prop("checked")){
+                        //alert($(this).find('input').prop("checked"));
+                        if (index == obj['quiz_body'][curr_ques]['true_answer']) {
+                            $('.radio').addClass('red');
+                            $(this).addClass('green');
+                            isTrueAns = "true"; 
+                            //sleepFor(1000);
+                            //alert();
+                            //return;
+                        }else {
+                            $('.current_question').find('.answers').find('.radio').addClass('red'); 
+                            $('.current_question').find('.answers').find('.radio').eq(obj['quiz_body'][curr_ques]['true_answer']).addClass('green');      
+                        }
+                    }
+                });
+                $.ajax({
+                    url: uri,
+                    method: 'POST',
+                    async:true,
+                    data: JSON.stringify([isTrueAns, curr_ques, id, ques_count, true]),
+                    success: function(data) {
+                        console.log(data);
+                        setTimeout(showRating,1000);
+                    }
+                });
 
-      if (ques_count > curr_ques) {
-        $('.current_question').find('.answers').find('.radio').each(function(index){
-            if ($(this).find('input').prop("checked")){
-                if (index == obj['quiz_body'][curr_ques]['true_answer']) {
-                    $('.radio').addClass('red');
-                    $(this).addClass('green'); 
-                    isTrueAns = "true";
-                    //sleepFor(3000);
-                    //alert(); 
-                    //return;
-                }else {
-                    $('.current_question').find('.answers').find('.radio').addClass('red'); 
-                    $('.current_question').find('.answers').find('.radio').eq(obj['quiz_body'][curr_ques]['true_answer']).addClass('green');   
-                }
+                //$('#que' + curr_ques).removeClass('current_question');
+                //curr_ques++;
+                //$('#que' + curr_ques).addClass('current_question');
             }
-        });
-        $.ajax({
-            url: uri,
-            method: 'POST',
-            async:true,
-            data: JSON.stringify([isTrueAns, curr_ques, id, ques_count]),
-            success: function(data) {
-                console.log(data);
-            }
-        });
-        //sleepFor(3000);
-        setTimeout(redirect,1000);
-        //sleepFor(3000);
-      }
-  
+        
+              if (ques_count > curr_ques) {
+                $('.current_question').find('.answers').find('.radio').each(function(index){
+                    if ($(this).find('input').prop("checked")){
+                        if (index == obj['quiz_body'][curr_ques]['true_answer']) {
+                            $('.radio').addClass('red');
+                            $(this).addClass('green'); 
+                            isTrueAns = "true";
+                            //sleepFor(3000);
+                            //alert(); 
+                            //return;
+                        }else {
+                            $('.current_question').find('.answers').find('.radio').addClass('red'); 
+                            $('.current_question').find('.answers').find('.radio').eq(obj['quiz_body'][curr_ques]['true_answer']).addClass('green');   
+                        }
+                    }
+                });
+                $.ajax({
+                    url: uri,
+                    method: 'POST',
+                    async:true,
+                    data: JSON.stringify([isTrueAns, curr_ques, id, ques_count]),
+                    success: function(data) {
+                        console.log(data);
+                    }
+                });
+                //sleepFor(3000);
+                setTimeout(redirect,1000);
+                //sleepFor(3000);
+              }
+        }
     });
     
 });

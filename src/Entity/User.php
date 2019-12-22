@@ -69,7 +69,7 @@ class User implements UserInterface, \Serializable
 
     public function getEmail(): ?string
     {
-        return $this->email;
+        return $this->username;
     }
 
     public function setEmail(string $email): self
@@ -81,7 +81,7 @@ class User implements UserInterface, \Serializable
     //???????????
     public function getUsername(): ?string
     {
-        return $this->username;
+        return $this->email;
     }
 
     public function setUsername(string $username): self

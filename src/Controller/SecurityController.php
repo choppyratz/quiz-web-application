@@ -18,11 +18,11 @@ class SecurityController extends AbstractController
      */
     public function login(Request $request, AuthenticationUtils $utils): Response
     {
-        if ($this->isGranted('ROLE_USER')) {
-            $response = new RedirectResponse('/');
-			$response->prepare($request);
-			return $response->send();
-        }
+        //if ($this->isGranted('ROLE_USER')) {
+        //    $response = new RedirectResponse('/');
+		//	$response->prepare($request);
+		//	return $response->send();
+        //}
         $error = $utils->getLastAuthenticationError();
 
         $lastUserName = $utils->getLastUsername();
